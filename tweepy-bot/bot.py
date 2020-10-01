@@ -2,6 +2,7 @@
 import tweepy
 import requests
 import json
+
 # personal details
 consumer_key ="dKRVYTRotNt0Xe2Cy3oFfhybw"
 consumer_secret ="AcRg9XqEe3x2bZO3C2Ce4rpd7KvuTtvj3dtsguU6iNlLY79v11"
@@ -18,10 +19,7 @@ auth.set_access_token(access_token, access_token_secret)
 # making GET request to github API
 response = requests.get("https://api.github.com/search/issues?q=label:hacktoberfest+is:issue+is:open&sort=updated&order=desc")
 print(response.status_code)
-def jprint(obj):
-    # create a formatted string of the Python JSON object
-    text = json.dumps(obj, sort_keys=True, indent=4)
-    print(text)
+
 
 all_items = response.json()['items']
 
@@ -31,11 +29,10 @@ def humanize_url(url):
 
 for i in range(0,30):
     print(i+1)
-    jprint(all_items[i]["title"])
-    jprint(humanize_url(all_items[i]["url"]))
+    print(all_items[i]["title"] + "\n" + humanize_url(all_items[i]["url"]))
     print("\n")
 
-api = tweepy.API(auth)
+
 
 # update the status
 # api.update_status(status ="Happy hacktober Everyone!")
