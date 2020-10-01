@@ -25,10 +25,14 @@ def jprint(obj):
 
 all_items = response.json()['items']
 
+def humanize_url(url):
+    h_url = url[:8]+"github.com/"+url[29:]
+    return h_url
+
 for i in range(0,30):
     print(i+1)
     jprint(all_items[i]["title"])
-    jprint(all_items[i]["url"])
+    jprint(humanize_url(all_items[i]["url"]))
     print("\n")
 
 api = tweepy.API(auth)
