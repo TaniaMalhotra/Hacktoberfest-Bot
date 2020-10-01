@@ -1,4 +1,4 @@
-#this is the code for importing the module
+# this is the code for importing the module
 import tweepy
 import requests
 import json
@@ -15,7 +15,7 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 # authentication of access token and secret
 auth.set_access_token(access_token, access_token_secret)
 
-#making GET request to github API
+# making GET request to github API
 response = requests.get("https://api.github.com/search/issues?q=label:hacktoberfest+is:issue+is:open&sort=updated&order=desc")
 print(response.status_code)
 def jprint(obj):
@@ -23,9 +23,13 @@ def jprint(obj):
     text = json.dumps(obj, sort_keys=True, indent=4)
     print(text)
 
+all_items = response.json()['items']
 
-jprint(response.json()['items'][0]["title"])
-jprint(response.json()['items'][0]["url"])
+for i in range(0,30):
+    print(i+1)
+    jprint(all_items[i]["title"])
+    jprint(all_items[i]["url"])
+    print("\n")
 
 api = tweepy.API(auth)
 
