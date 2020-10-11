@@ -50,6 +50,8 @@ for i in range(0,3):
     for i in range(0,len(current_issues)):
         prev_issues[i] = current_issues[i]
 
+api = tweepy.API(auth, wait_on_rate_limit=True,
+    wait_on_rate_limit_notify=True)
 
 
 # update the status
