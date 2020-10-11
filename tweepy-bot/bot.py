@@ -9,12 +9,6 @@ consumer_secret ="AcRg9XqEe3x2bZO3C2Ce4rpd7KvuTtvj3dtsguU6iNlLY79v11"
 access_token ="1311544857941274626-L8zWYVKwL8p4glQhvY1dD4RdHSLG6r"
 access_token_secret ="BcdkoB33j0MxSZDiYylW1AE1K5aQaDcp9Rjip4aCBHYpb"
 
-# creating a MongoClient
-myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-mydb = myclient["mydatabase"]
-mycol = mydb["customers"]
-
-
 # authentication of consumer key and secret
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 
@@ -26,8 +20,6 @@ response = requests.get("https://api.github.com/search/issues?q=label:hacktoberf
 print(response.status_code)
 
 prev_issues = []
-
-
 new_issues = response.json()['items']
 
 #because I need to index a blank list later
@@ -39,23 +31,24 @@ def humanize_url(url):
     return h_url
 
 
-for i in range(0,len(new_issues)):
-    url = humanize_url(new_issues[i]["url"])
-    for j in range(0,30):
-        if prev_issues[j] == url:
-            continue
-    print(i+1)
-    print(new_issues[i]["title"] + "\n" + url)
-    print("\n")
+for i in range(0,3):
+    current_issues = []
+    match = False
+    for i in range(0,len(new_issues)):
+        url = humanize_url(new_issues[i]["url"])
+        for j in range(0,len(prev_issues)):
+            if prev_issues[j] == url:
+                match = True
+        if not match:
+            current_issues.append(url)
+            print(i+1)
+            print(new_issues[i]["title"] + "\n" + url)
+            print("\n")
 
-for i in range(0,len(new_issues)):
-    prev_issues[i] = new_issues[i]["url"]
 
 
-#for checking
-print("Now printing prev issues array")
-for i in range(0,30):
-    print(prev_issues[i])
+    for i in range(0,len(current_issues)):
+        prev_issues[i] = current_issues[i]
 
 
 
