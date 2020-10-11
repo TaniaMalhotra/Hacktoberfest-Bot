@@ -1,5 +1,3 @@
-#It contains create_api(), a function that reads authentication credentials from environment variables and creates the Tweepy API object:
-
 # tweepy-bots/bots/config.py
 import tweepy
 import logging
