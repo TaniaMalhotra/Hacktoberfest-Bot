@@ -49,9 +49,19 @@ def tweet():
                 match = True
                 #print("match is found for " + url + "in prev_issues array at position "+str(j))
         if not match:
+            twt = new_issues[i]["title"] + "\n" + url
+            try:
+                api.update_status(status = twt)
+            except tweepy.TweepError as error:
+                if error.api_code == 187:
+                    # Do something special
+                    print('duplicate message')
+                else:
+                    raise error
             print(i+1)
-            print(new_issues[i]["title"] + "\n" + url)
+            print(twt)
             print("\n")
+
         current_issues.append(url)
 
     for i in range(0,len(current_issues)):
@@ -69,7 +79,7 @@ def main():
     while True:
         tweet()
         logger.info("Waiting...")
-        time.sleep(30)
+        time.sleep(60)
 
 if __name__ == "__main__":
     main()
