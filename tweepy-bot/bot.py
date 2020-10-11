@@ -29,7 +29,7 @@ def make_req():
 prev_issues = []
 
 #because I need to index a blank list later
-for i in range(0,5):
+for i in range(0,30):
     prev_issues.append("")
 
 def humanize_url(url):
@@ -42,23 +42,24 @@ def tweet():
     new_issues = make_req().json()['items']
     current_issues = []
     match = False
-    for i in range(0,5):
+    for i in range(0,len(new_issues)):
         url = humanize_url(new_issues[i]["url"])
         for j in range(0,len(prev_issues)):
             if prev_issues[j] == url:
                 match = True
-                print("match is found for " + url + "in prev_issues array at position "+str(j))
+                #print("match is found for " + url + "in prev_issues array at position "+str(j))
         if not match:
-            current_issues.append(url)
             print(i+1)
             print(new_issues[i]["title"] + "\n" + url)
             print("\n")
+        current_issues.append(url)
+
     for i in range(0,len(current_issues)):
         prev_issues[i] = current_issues[i]
 
-    print("previous issues array")
-    for i in range(0,len(prev_issues)):
-        print(prev_issues[i])
+    # print("previous issues array")
+    # for i in range(0,len(prev_issues)):
+    #     print(prev_issues[i])
 
 api = tweepy.API(auth, wait_on_rate_limit=True,
     wait_on_rate_limit_notify=True)
