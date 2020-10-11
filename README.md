@@ -1,14 +1,14 @@
 <div align="center">
 
 <img src ="https://github.com/TaniaMalhotra/Hacktoberfest-Bot/blob/master/logo.png">
-</div>
+
 # Hacktoberfest Bot
 
 A twitter bot to make the process of finding relevant issues for contribution easier.\It tweets open and unassigned issues labelled with ```hacktoberfest```label and thus you can easily chose the one you would like to contribute to!\ 
 
 Give a follow!
 <a href="https://twitter.com/Hacktoberfesti1" target="_blank"><img src="https://pbs.twimg.com/profile_images/1111729635610382336/_65QFl7B.png" height="20" ></a>
-
+</div>
 ## How to run the bot in your terminal
 
 - Clone the repository using ```git clone https://github.com/TaniaMalhotra/Hacktoberfest-Issues-Twitter-Bot```
