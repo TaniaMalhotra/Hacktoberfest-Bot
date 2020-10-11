@@ -1,7 +1,7 @@
 <div align="center">
 
 <img src ="https://github.com/TaniaMalhotra/Hacktoberfest-Bot/blob/master/logo.png">
-
+</div>
 # Hacktoberfest Bot
 
 A twitter bot to make the process of finding relevant issues for contribution easier.\It tweets open and unassigned issues labelled with ```hacktoberfest```label and thus you can easily chose the one you would like to contribute to!\ 
