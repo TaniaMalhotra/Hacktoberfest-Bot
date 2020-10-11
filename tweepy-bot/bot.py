@@ -25,20 +25,37 @@ auth.set_access_token(access_token, access_token_secret)
 response = requests.get("https://api.github.com/search/issues?q=label:hacktoberfest+is:issue+is:open&sort=updated&order=desc")
 print(response.status_code)
 
+prev_issues = []
 
-all_items = response.json()['items']
+
+new_issues = response.json()['items']
+
+#because I need to index a blank list later
+for i in range(0,len(new_issues)):
+    prev_issues.append("")
 
 def humanize_url(url):
     h_url = url[:8]+"github.com/"+url[29:]
     return h_url
 
 
-for i in range(0,len(all_items)):
-    url = humanize_url(all_items[i]["url"])
-    dict = {"url":url}
+for i in range(0,len(new_issues)):
+    url = humanize_url(new_issues[i]["url"])
+    for j in range(0,30):
+        if prev_issues[j] == url:
+            continue
     print(i+1)
-    print(all_items[i]["title"] + "\n" + url)
+    print(new_issues[i]["title"] + "\n" + url)
     print("\n")
+
+for i in range(0,len(new_issues)):
+    prev_issues[i] = new_issues[i]["url"]
+
+
+#for checking
+print("Now printing prev issues array")
+for i in range(0,30):
+    print(prev_issues[i])
 
 
 
