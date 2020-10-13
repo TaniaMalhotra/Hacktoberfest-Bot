@@ -1,4 +1,4 @@
-# this is the code for importing the module
+# This is the code for importing the module
 import tweepy
 import requests
 import json
@@ -8,14 +8,14 @@ from config import create_api
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()
 
-# making GET request to github API
+# Making GET request to github API
 def make_req():
     response = requests.get("https://api.github.com/search/issues?q=label:hacktoberfest+is:issue+is:open&sort=updated&order=desc")
     return response
 
 prev_issues = []
 
-#because I need to index a blank list later
+# Because I need to index a blank list later
 for i in range(0,30):
     prev_issues.append("")
 
@@ -69,5 +69,5 @@ def main():
 if __name__ == "__main__":
     main()
 
-# update the status
+# Update the status
 # api.update_status(status ="Happy hacktober Everyone!")
