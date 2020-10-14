@@ -5,6 +5,7 @@ import json
 import logging
 import time
 from config import create_api
+from database import insert_data
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()
 
@@ -36,7 +37,10 @@ def tweet(api):
                 #print("match is found for " + url + "in prev_issues array at position "+str(j))
         if not match:
             twt = new_issues[i]["title"] + "\n" + url
+            title = new_issues[i]["title"]
             try:
+                print("status updated as " + twt)
+                insert_data(title,url)
                 api.update_status(status = twt)
             except tweepy.TweepError as error:
                 if error.api_code == 187:
