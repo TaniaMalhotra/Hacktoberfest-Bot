@@ -1,5 +1,6 @@
 import sqlite3
 import logging
+import json
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()
 
@@ -12,6 +13,7 @@ logger = logging.getLogger()
 Connects with the database and if it is not present creates one named issue.db
 '''
 
+
 try:
     conn = sqlite3.connect('issue.db')
 except Exception as e:
@@ -21,6 +23,9 @@ except Exception as e:
 c = conn.cursor()
 
 
+def convertTuple(tup): 
+    str =  ''.join(tup) 
+    return str
 
 def insert_data(issue_title,issue_url):
     '''
@@ -32,7 +37,6 @@ def insert_data(issue_title,issue_url):
     except sqlite3.IntegrityError:
         pass
         logger.info("Database Updated!")
-    conn.close()
 
 
 def create_schema():
@@ -41,11 +45,36 @@ def create_schema():
     to avoid tweets being repeted, the url column is set to unique so no two link is same
     '''
     
-    c.execute("""CREATE TABLE issue (
+    c.execute("""CREATE TABLE IF NOT EXISTS issue (
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
             issue_text TEXT,
             url TEXT NOT NULL UNIQUE
             )""")
     conn.commit()
     logger.info("Database Created!")
+
+def get_last_data():
+    '''
+    Gets the latest issue from the database
+    '''
+    c.execute("SELECT * FROM issue ORDER BY ID DESC LIMIT 1")
+    conn.commit()
+    data = c.fetchone()
+    txt = convertTuple(data[1:2]) + "\n" + convertTuple(data[2:])
+    return txt
+
+def del_last_data():
+    '''
+    Deletes the latest row in the database
+    '''
+    x = c.execute("SELECT * FROM issue")
+    count = len(c.fetchall())
+    try:
+        c.execute("DELETE FROM issue WHERE rowid = (?)", (count,))
+        print("Data deleted")
+    except:
+        pass
+        print("No more data in database")
+    conn.commit()
+
 
