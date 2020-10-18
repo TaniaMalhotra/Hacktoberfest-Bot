@@ -72,11 +72,16 @@ def get_last_data():
     '''
     Gets the latest issue from the database
     '''
-    c.execute("SELECT * FROM issue ORDER BY ID DESC LIMIT 1")
-    conn.commit()
-    data = c.fetchone()
-    txt = convertTuple(data[1:2]) + "\n" + convertTuple(data[2:])
-    return txt
+    try:
+        c.execute("SELECT * FROM issue ORDER BY ID DESC LIMIT 1")
+        conn.commit()
+        data = c.fetchone()
+        txt = convertTuple(data[1:2]) + "\n" + convertTuple(data[2:])
+        return txt
+    except:
+        logger.info("No new data, Waiting for new data")
+
+
 
 def del_last_data():
     '''
