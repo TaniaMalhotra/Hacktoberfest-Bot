@@ -10,6 +10,20 @@ Give a follow!
 <a href="https://twitter.com/Hacktoberfesti1" target="_blank"><img src="https://pbs.twimg.com/profile_images/1111729635610382336/_65QFl7B.png" height="20" ></a>
 </div>
 
+## How to set up your Twitter API
+
+- Go to the [Twitter Developer's site](dev.twitter.com) and sign in with the Twitter account you want to associate with your app.
+- After logging in, click on the downwards arrow next to your image and select "My Applications". This is where all your registered Twitter Apps will be shown.
+- Create your application by clicking on the 'Create a new application' button.
+- Fill in the relevant details in the application form, including your website URL in the website field. This is where your app will be hosted. The Callback URL field can be ignored for the time being. Read and accept the terms and conditions and click on "Create Your Twitter Application" button and youre good to go!
+- You will be taken to a new screen where you need to create an access token for yourself to authorize your Twitter app for your Twitter account. Click on "Create my access token" to do this. Note: You will need to generate a new token if you change app permissions at any future point of time. 
+- After the token is generated, choose the type of access you require. Change it to 'read and write' to give the app permission to follow other accounts on your behalf. This will prompt a mobile verification with your twitter account.
+- You are done setting up your Twitter API. Keep a note of the following (which are to be kept secret):
+    - Consumer Key
+    - Consumer Secret
+    - OAuth Access Token
+    - OAuth Access Token Secret
+
 ## How to run the bot in your terminal
 
 - Clone the repository using ```git clone https://github.com/TaniaMalhotra/Hacktoberfest-Issues-Twitter-Bot```
