@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src ="https://github.com/TaniaMalhotra/Hacktoberfest-Bot/blob/master/logo.png">
+<img src ="https://github.com/TaniaMalhotra/Hacktoberfest-Bot/blob/master/new-logo/logo.png">
 
 # Hacktoberfest Bot
 
