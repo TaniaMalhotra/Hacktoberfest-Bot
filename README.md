@@ -10,6 +10,17 @@ Give a follow!
 <a href="https://twitter.com/Hacktoberfesti1" target="_blank"><img src="https://pbs.twimg.com/profile_images/1111729635610382336/_65QFl7B.png" height="20" ></a>
 </div>
 
+
+## How to run the bot in your terminal
+
+- Clone the repository using ```git clone https://github.com/TaniaMalhotra/Hacktoberfest-Issues-Twitter-Bot```
+- Navigate to the tweepy-bot directory
+- You will need to set the values of the following four environment variables : ```consumer_key``` ```consumer_secret``` ```access_token``` ```access_secret```
+- Go to your twitter app's dashboard and set a new app [here](https://developer.twitter.com/en/portal/projects-and-apps)
+- Get the keys and authenticate
+- Run ```python bot.py```
+
+
 ## How to set up your Twitter API
 
 - Go to the [Twitter Developer's site](dev.twitter.com) and sign in with the Twitter account you want to associate with your app.
@@ -23,15 +34,6 @@ Give a follow!
     - Consumer Secret
     - OAuth Access Token
     - OAuth Access Token Secret
-
-## How to run the bot in your terminal
-
-- Clone the repository using ```git clone https://github.com/TaniaMalhotra/Hacktoberfest-Issues-Twitter-Bot```
-- Navigate to the tweepy-bot directory
-- You will need to set the values of the following four environment variables : ```consumer_key``` ```consumer_secret``` ```access_token``` ```access_secret```
-- Go to your twitter app's dashboard and set a new app [here](https://developer.twitter.com/en/portal/projects-and-apps)
-- Get the keys and authenticate
-- Run ```python bot.py```
 
 
 ## Troubleshooting
