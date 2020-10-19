@@ -79,6 +79,7 @@ def get_last_data():
         txt = convertTuple(data[1:2]) + "\n" + convertTuple(data[2:])
         return txt
     except:
+        pass
         logger.info("No new data, Waiting for new data")
 
 
