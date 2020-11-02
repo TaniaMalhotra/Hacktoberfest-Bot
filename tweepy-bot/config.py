@@ -5,8 +5,7 @@ import os
 
 logger = logging.getLogger()
 
-
-def create_api():                                               # access twitter api
+def create_api():
     consumer_key = os.getenv("CONSUMER_KEY")
     consumer_secret = os.getenv("CONSUMER_SECRET")
     access_token = os.getenv("ACCESS_TOKEN")
@@ -15,7 +14,7 @@ def create_api():                                               # access twitter
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
     api = tweepy.API(auth, wait_on_rate_limit=True,
-                     wait_on_rate_limit_notify=True)
+        wait_on_rate_limit_notify=True)
     try:
         api.verify_credentials()
     except Exception as e:
