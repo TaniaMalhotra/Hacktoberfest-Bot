@@ -3,8 +3,9 @@ import requests
 import json
 import logging
 import time
+import schedule
 from config import create_api
-from database import insert_data, del_last_data, get_last_data
+from database import get_issue,insert_data,clear_database
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()
 
@@ -26,25 +27,35 @@ def tweet(api):
         url = humanize_url(new_issues[i]["url"])
         title = new_issues[i]["title"]
         insert_data(title,url)
-        twt = get_last_data()
+        twt = get_issue()
         try:
             api.update_status(status = twt)
             logger.info("Tweet Posted!")
-            del_last_data()
         except tweepy.TweepError as error:
             if error.api_code == 187:
-                # Do something special
-                logger.info("Dublicate tweet, Issue Deleted From database")
-                del_last_data()
+                logger.error("Dublicate tweet!")
             else:
                 raise error
+
+def database_del():
+    '''
+    i seriously have no idea why schedule wants it like this :(
+    '''
+    clear_database()
+
+
+schedule.every(15).days.do(database_del) # runs the clean database module evey 30 days
 
 def main():
     api = create_api()
     while True:
         tweet(api)
         logger.info("Waiting...")
+        schedule.run_pending() # Checks whether a scheduled task is pending to run or not 
         time.sleep(60)
+
+        
+         
     
 
 if __name__ == "__main__":

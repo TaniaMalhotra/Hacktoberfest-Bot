@@ -9,11 +9,8 @@ logger = logging.getLogger()
         -Delete old tweets
         -cache tweets before sending
 
-
 Connects with the database and if it is not present creates one named issue.db
 '''
-
-
 try:
     conn = sqlite3.connect('issue.db')
 except Exception as e:
@@ -36,8 +33,8 @@ def convertTuple(tup):
     '''
     convert a tuple to string
     '''
-    str =  ''.join(tup) 
-    return str
+    stri =  ''.join(tup) 
+    return stri
 
 
 
@@ -51,7 +48,8 @@ def create_schema():
     c.execute("""CREATE TABLE IF NOT EXISTS issue (
             ID INTEGER PRIMARY KEY,
             issue_text TEXT,
-            url TEXT NOT NULL UNIQUE
+            url TEXT NOT NULL UNIQUE,
+            tweeted INTEGER NOT NULL DEFAULT 0
             )""")
     conn.commit()
     logger.info("Database Created!")
@@ -68,15 +66,19 @@ def insert_data(issue_title,issue_url):
         pass
         logger.info("Dublicate Data, not inserted")
 
-def get_last_data():
+def get_issue():
     '''
-    Gets the latest issue from the database
+    Gets the latest issue from the database where the tweeted colume is 0
+    and updates the issue's tweeted colume to 1 
     '''
     try:
-        c.execute("SELECT * FROM issue ORDER BY ID DESC LIMIT 1")
+        c.execute("SELECT * FROM issue WHERE tweeted = 0 ORDER BY ID ASC LIMIT 1")
+
         conn.commit()
         data = c.fetchone()
-        txt = convertTuple(data[1:2]) + "\n" + convertTuple(data[2:])
+        row_id = data[0]
+        update_tweeted(row_id)
+        txt = convertTuple(data[1:2]) + "\n" + convertTuple(data[2:3])
         return txt
     except:
         pass
@@ -84,17 +86,23 @@ def get_last_data():
 
 
 
-def del_last_data():
+def clear_database():
     '''
-    Deletes the latest row in the database
+    Clears the database
     '''
-    count = data_count()
     try:
-        c.execute("DELETE FROM issue WHERE ROWID = :ct", {"ct":count})
+        c.execute("DELETE FROM issue WHERE tweeted = 1")
         conn.commit()
-        print("Data deleted")
+        logger.info("Database Cleared!")
     except:
         pass
-        print("No more data in database")
+        logger.info("No Data to Delete")
 
+def update_tweeted(rid):
+    '''
+    changes the value of tweeted to 1
+    '''
+    c.execute("UPDATE issue SET tweeted = 1 WHERE ROWID = :id",{"id":rid})
+    conn.commit()
 
+create_schema()
